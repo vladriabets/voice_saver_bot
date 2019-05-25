@@ -2,15 +2,17 @@ import telepot
 import os
 import requests
 import time
-from pprint import pprint
 from telepot.loop import MessageLoop
 
 
-# Создание бота по токену, сохранённому в переменной окружения
+# Создаёт бота по токену, сохранённому в переменной окружения
 TOKEN = os.environ.get('TOKEN')
 bot = telepot.Bot(TOKEN)
 
 def add_new_record(file, user_id):
+    """Создаёт файл с аудиосообщением в папке, название которой соответствует
+     id пользователя, создавшего аудиосообщение"""
+
     dir_name = str(user_id)
     if not os.path.exists(dir_name):
         os.mkdir(dir_name)
@@ -27,14 +29,9 @@ def on_chat_message(msg):
         user_id = msg['from']['id']
         file_id = msg['voice']['file_id']
         file_info = bot.getFile(file_id)
-        print(file_info)
         file = requests.get('https://api.telegram.org/file/bot{0}/{1}'
         .format(TOKEN, file_info['file_path']))
         add_new_record(file, user_id)
-
-        print(file)
-
-    pprint(msg)
 
 
 MessageLoop(bot, {'chat': on_chat_message}).run_as_thread()
