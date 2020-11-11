@@ -27,7 +27,7 @@ stevedore==1.30.1
 telepot==12.7
 termcolor==1.1.0
 typing-extensions==3.7.2
-urllib3==1.22
+urllib3==1.24.2
 virtualenv==15.2.0
 Werkzeug==0.14.1
 whitenoise==4.1.2
