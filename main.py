@@ -5,13 +5,13 @@ import time
 from telepot.loop import MessageLoop
 
 
-# Создаёт бота по токену, сохранённому в переменной окружения
+# Create bot using token saved as environment variable
 TOKEN = os.environ.get('TOKEN')
 bot = telepot.Bot(TOKEN)
 
 def add_new_record(file, user_id):
-    """Создаёт файл с аудиосообщением в папке, название которой соответствует
-     id пользователя, создавшего аудиосообщение"""
+    """ Create new audio file in the folder named
+    as an id of a user who send the record """
 
     dir_name = str(user_id)
     if not os.path.exists(dir_name):
@@ -22,7 +22,7 @@ def add_new_record(file, user_id):
 
 
 def on_chat_message(msg):
-    """Обработчик сообщений"""
+    """ Process messages """
 
     content_type, chat_type, chat_id = telepot.glance(msg)
     if content_type == 'voice':
